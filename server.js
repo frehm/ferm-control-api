@@ -2,16 +2,56 @@
 
 var express = require('express');
 var morgan = require('morgan');
+var ArduinoControl = require('./arduino-control');
 var app = express();
+
+var arduino1 = new ArduinoControl({ serialPort: '/dev/ttyACM0'}); //TODO: Add to config file
 
 app.use(morgan('dev'));
 
-app.get('/', function (req, res) {
+app.get('/connect', function (req, res) {
 
-  res.json({
-    success: true,
-    message: 'This api does nothing!'
-  });
+  arduino1.connect(true)
+    .then(function (message) {
+
+      res.json({
+        success: true,
+        message: message
+      });
+
+    })
+    .catch(function (err) {
+
+      res.json({
+        success: false,
+        message: 'Failed to open port',
+        error: err
+      });
+
+    });
+
+});
+
+app.get('/disconnect', function (req, res) {
+
+  arduino1.disconnect()
+    .then(function (message) {
+
+      res.json({
+        success: true,
+        message: message
+      });
+
+    })
+    .catch(function (err) {
+
+      res.json({
+        success: false,
+        message: 'Failed to close port',
+        error: err
+      });
+
+    });
 
 });
 
