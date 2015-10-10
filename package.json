@@ -1,0 +1,30 @@
+{
+  "name": "ferm-control-api",
+  "version": "1.0.0",
+  "description": "Http interface to an Arduino that controls fermentation temperatures",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frehm/ferm-control-api.git"
+  },
+  "keywords": [
+    "raspberry",
+    "arduino",
+    "beer",
+    "fermentation",
+    "control"
+  ],
+  "author": "Andreas Johansson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/frehm/ferm-control-api/issues"
+  },
+  "homepage": "https://github.com/frehm/ferm-control-api#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "morgan": "^1.6.1"
+  }
+}
