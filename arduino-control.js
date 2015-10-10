@@ -60,6 +60,7 @@ class ArduinoControl extends events.EventEmitter {
 
   _serialClose() {
     console.log('port closed');
+    this.serial = null;
   }
 
   connect(flushOnOpen) {
@@ -79,12 +80,14 @@ class ArduinoControl extends events.EventEmitter {
       self.serial.open(function (err) {
         if (err) return reject(err);
 
-        self.serial.on('data', self._serialData.bind(self));
+
         self.serial.on('error', self._serialError.bind(self));
         self.serial.on('close', self._serialClose.bind(self));
 
         if (flushOnOpen) {
           self.serial.flush(function (flushErr) {
+
+            self.serial.on('data', self._serialData.bind(self));
 
             if (flushErr) {
               resolve('port opened, but flush failed');
@@ -95,6 +98,7 @@ class ArduinoControl extends events.EventEmitter {
           });
 
         } else {
+          self.serial.on('data', self._serialData.bind(self));
           resolve('port opened');
         }
 
