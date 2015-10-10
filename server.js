@@ -5,6 +5,7 @@ var morgan = require('morgan');
 var ArduinoControl = require('./arduino-control');
 var app = express();
 
+// /dev/ttyACM0
 var arduino1 = new ArduinoControl({ serialPort: '/dev/ttyACM0'}); //TODO: Add to config file
 
 app.use(morgan('dev'));
